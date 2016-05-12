@@ -1,0 +1,36 @@
+<div class="container" style="width:100%">
+    <div class="row">
+        <table>
+            <tr>
+                <td valign="top">
+                    <table class="table table-hover">
+                        <tr>
+                            <td colspan="2">
+                                <label for="inputUrl">Add url with video</label>
+                                <input type="url" class="form-control" id="inputUrl" placeholder="Url with video" ng-model="$ctrl.videoUrlModel" style="min-width:300px;">
+                                <button class="btn btn-default" ng-click="$ctrl.getVideoByUrl()">Add video URL</button>
+                            </td>
+
+                            <td style="vertical-align: bottom;">
+                                <button class="btn btn-default" ng-click="$ctrl.removeAllUrl()">Remove All URLs</button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="video in $ctrl.videoList" style="cursor:pointer;" ng-class="{'active':$ctrl.currentVideo.src==video}">
+                            <td ng-click="$ctrl.clickVideo(video)">
+                                <img width="50" height="50" ng-src="{{$ctrl.VideoUrlService.getCurrentVideo(video).poster}}" class="img-rounded">
+                            </td>
+                            <td ng-click="$ctrl.clickVideo(video)"><span>{{video}}</span></td>
+                            <td align="center" style="vertical-align: middle;" ng-click="$ctrl.removeVideo(video)" title="Delete">
+                                <a class="glyphicon glyphicon-remove"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="720" height="480">
+                    <video ng-if="$ctrl.currentVideo.src && $ctrl.videoList.length" controls ng-attr-preload="false" poster="{{$ctrl.currentVideo.poster}}" preload="none" ng-src="{{$ctrl.trustSrc($ctrl.currentVideo.src)}}" width="720" height="480">
+                    </video>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
